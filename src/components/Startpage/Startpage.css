@@ -1,0 +1,4 @@
+.Startpage { 
+    display: flex;
+    flex-direction: column;
+}
