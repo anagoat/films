@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Startpage from './components/Startpage/Startpage';
+import Startpage from './Startpage/Startpage';
+import { Route, Switch, withRouter } from 'react-router-dom';
+
 
 
 import './App.css';
@@ -9,27 +11,26 @@ class App extends Component {
         super(props);
 
         this.state = {
-        muvies: ''
+        movies: ''
     }
     }
-
 
     componentDidMount() {
         fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=bdd7f7a48b658c92664ee36018357c6f&language=ru-RU&page=1')
-            .then(response => response.json())
-            .then(response => this.setState({ movies: response }));
+            .then(res => res.json())
+            .then(response => this.setState({ movies: response.results }));
     }
 
-
     render() {
-        const   { movies } = this.state;
+        console.log('[this.state.movies]', this.state.movies);
         return (
             <div className="App">
-              <Startpage 
-                movies={movies}
-              >
-
-              </Startpage>
+            <Route path="/" exact render={props => (
+                        <Startpage
+                            {...props}
+                            movies={this.state.movies}
+                        />
+                    )} />
             </div>
         );
     }
