@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import Startpage from './Startpage/Startpage';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../node_modules/bootstrap/dist/css/bootstrap-grid.min.css'
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js'
 
+import Startpage from './Startpage/Startpage';
+import Toolbar from './components/Toolbar/Toolbar';
+import Footer from './components/Footer/Footer';
 
 
 import './App.css';
@@ -25,12 +30,15 @@ class App extends Component {
         console.log('[this.state.movies]', this.state.movies);
         return (
             <div className="App">
-            <Route path="/" exact render={props => (
+                <Toolbar />
+
+                <Route path="/" exact render={props => (
                         <Startpage
                             {...props}
                             movies={this.state.movies}
                         />
                     )} />
+                 <Footer />
             </div>
         );
     }

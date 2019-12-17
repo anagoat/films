@@ -12,7 +12,6 @@ class Startpage extends Component {
     render() {
         const { movies } = this.props;
         let movie = Array.from(movies);
-        console.log('[movie]', movie);
         const a = movie.map(elem => (
             <StartMovie
                 key={elem.id}
