@@ -3,11 +3,16 @@
     background: -webkit-linear-gradient(to right, #605C3C, #3C3B3F);  
     background: linear-gradient(to right, #605C3C, #3C3B3F); 
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 
-    
     h1 {
         margin: 0;
         padding: 0;
     }
 
+    .dropdown {
+        padding: 10px;
+    }
 }

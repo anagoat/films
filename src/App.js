@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../node_modules/bootstrap/dist/css/bootstrap-grid.min.css'
-import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js'
+// import 'bootstrap';
 
-import Startpage from './Startpage/Startpage';
+import Startpage from './components/StartPage/Startpage';
 import Toolbar from './components/Toolbar/Toolbar';
 import Footer from './components/Footer/Footer';
+import Films from './components/Films/Films';
 
 
 import './App.css';
@@ -18,6 +19,7 @@ class App extends Component {
         this.state = {
         movies: ''
     }
+    
     }
 
     componentDidMount() {
@@ -27,17 +29,27 @@ class App extends Component {
     }
 
     render() {
-        console.log('[this.state.movies]', this.state.movies);
         return (
             <div className="App">
-                <Toolbar />
+                <Toolbar /> 
+
+                <Switch>
 
                 <Route path="/" exact render={props => (
-                        <Startpage
-                            {...props}
-                            movies={this.state.movies}
-                        />
-                    )} />
+                    <Startpage
+                        {...props}
+                        movies={this.state.movies}
+                    />
+                )} />
+
+                <Route path="/:selectedCategory" extend render={props => (
+                    <Films 
+                        {...props}
+                    />
+                )} />
+
+                </Switch>
+                
                  <Footer />
             </div>
         );
@@ -45,3 +57,5 @@ class App extends Component {
 }
 
 export default App;
+
+
