@@ -1,0 +1,71 @@
+.Auth {
+    background-image: linear-gradient(to top,#c9c9c9, #f3f3f3 );
+    padding: 10px;
+}
+
+.Auth form {
+    background: linear-gradient(to right, #fafafa, #b1b1b1); 
+    padding: 10px 50px;
+    border-radius: 4px;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.Auth h2 {
+    color: wheat;
+    text-align: center;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+}
+
+.Auth .Button {
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.Auth .Input {
+    margin-bottom: 15px;
+}
+
+.Auth .ErrorMessege {
+    color: rgb(238, 0, 0);
+    align-self: center;
+    font-size: .8rem;
+}
+
+.Auth button {
+    margin: 10px;
+    border: none;
+    padding: 5px 30px;
+    box-shadow: 0 3px 4px #111;
+    font-size: 1rem;
+    color: rgb(189, 71, 71);
+    background-color: #e7f195;
+    cursor: pointer;
+    user-select: none;
+    transition:
+        background-color 200ms ease,
+        text-shadow 200ms ease,
+        transform 50ms ease;
+}
+.Auth button:hover {
+        background-color: darken(#1c1f07, 20%);
+        text-shadow: 0 0 3px #000000;
+}
+
+.Auth button:active {
+    transform: scale(.95);
+}
+
+.Auth button  a { 
+    text-decoration: none;
+}
+
+.Auth button   li {
+    list-style-type: none;
+}

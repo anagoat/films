@@ -8,7 +8,7 @@ import Startpage from './components/StartPage/Startpage';
 import Toolbar from './components/Toolbar/Toolbar';
 import Footer from './components/Footer/Footer';
 import Films from './components/Films/Films';
-
+import Auth from './components/Auth/Auth';
 
 import './App.css';
 
