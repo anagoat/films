@@ -69,3 +69,15 @@
 .Auth button   li {
     list-style-type: none;
 }
+.ModeToggler {
+    color: orange;
+    border-bottom: 1px dotted transparent;
+    cursor: pointer;
+    align-self: center;
+    font-family: sans-serif;
+    font-size: .85rem;
+
+    &:hover {
+        border-color: orange;
+    }
+}

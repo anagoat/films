@@ -3,28 +3,28 @@ import PropTypes from 'prop-types';
 import Input from '../UI/Input/Input';
 import  { withRouter } from 'react-router-dom';
 
-
-import './Auth.css';
+import './Auth.scss';
 
 class Auth extends Component {
     constructor(props){
         super(props);
 
         this.state = {
-            login: '',
+            email: '',
             password: '',
-            errorLogin: '',
+            errorEmail: '',
             errorPassword: '',
-            isSubmiting: false
+            isSubmiting: false,
+            mode: ''
         }
 
     }
 
-    onChangeLogin = event => {
+    onChangEmail = event => {
         const { value } = event.target;
         this.setState({
-            login: value,
-            errorLogin: ''
+            email: value,
+            errorEmail: ''
         } )
     }
 
@@ -38,42 +38,64 @@ class Auth extends Component {
 
     submit(event){
         event.preventDefault();
-       if ( this.isFormValid() === true ) {
-            const { history }  = this.props;
-            this.setState({ isSubmiting: true })
-            history.push('/transactions');
-       }
+        
+        const { email, password } = this.state;
+        
+        if (this.isFormValid() === true ) {
+
+                const baseUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='
+                const apiKey = 'AIzaSyBhQtg20izEFrHgqbHragW9ZVpZsQSm0xA'
+
+                const options = {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        returnSecureToken: true
+                    })
+                };
+
+                fetch(baseUrl + apiKey, options )
+                .then(res => res.json())
+                .then(result => {
+                    console.log('[result]', result)
+                    
+                    this.setState({ isSubmiting: true })
+                })
+                .catch(err => console.log('[err]', err))
+        }
    }
 
    isFormValid(){
-       let loginValid = false;
+       let emailValid = false;
        let passwordValid = false;
 
-       if (this.isLoginValid(this.state.login) === true) {
-        loginValid = true;
+       if (this.isEmailValid(this.state.email) === true) {
+        emailValid = true;
        } 
 
        if (this.isPasswordValid(this.state.password) === true) {
         passwordValid = true;
        }
 
-       if ((loginValid === true) && (passwordValid === true)) {
+       if ((emailValid === true) && (passwordValid === true)) {
            return true
        }
    }
 
-   isLoginValid(login){
-       let errorLogin = '';
+   isEmailValid(email){
+       let errorEmail = '';
 
-       if (login === '') {
-           errorLogin = 'Введите логин';
-           this.setState({ errorLogin : errorLogin });
+       if (email === '') {
+            errorEmail = 'Введите email';
+           this.setState({ errorEmail : errorEmail });
            return false;
        }
 
-       if (!login.match(/(?=^[A-Za-z]).*$/)) {
-           errorLogin = 'Логин должен состоять из латинских букв';
-           this.setState({ errorLogin : errorLogin });
+    //    if (!email.match(/(?=^[A-Za-z]).*$/)) {
+        if (!email.match(/^[a-z0-9._-]+@[a-z0-9]+\.[a-z]{2,3}$/)) {
+            errorEmail = 'ошибка для email';
+           this.setState({ errorEmail : errorEmail });
            return false;
        }
        else { 
@@ -89,7 +111,8 @@ class Auth extends Component {
            return false;
        }
 
-       if ((!password.match(/(?=[A-Za-z0-9]{10,}$)(?=.*[A-Z])(?=.*[0-9]).*$/))) { 
+    //    if ((!password.match(/(?=[A-Za-z0-9]{10,}$)(?=.*[A-Z])(?=.*[0-9]).*$/))) { 
+       if (!password) { 
            errorPassword = 'Пароль должен быть минимум 10 символов, иметь 1 заглавную букву и 1 цифру';
            this.setState({ errorPassword: errorPassword });
            return false;
@@ -99,28 +122,34 @@ class Auth extends Component {
         return true };
    }
 
+    swithModeHandler = () => {
+        this.setState(prevState => ({
+            mode: prevState.mode === 'signup' ? 'signin' : 'signup'
+        }));
+    }
+
         render() {
-            const { errorLogin, errorPassword } = this.state;
+            const { errorEmail, errorPassword, mode } = this.state;
             return (
             <div className="Auth">
                 <form>
-                    <div class="form-group">
-                    <h1>Sign In</h1>
-                        <label for="exampleInputEmail1">Email address
+                    <h2>{ mode === 'signup' ? 'Sign Up' : 'Sign In' }</h2>
+                    <div className="form-group">
+                        <label htmlFor="exampleInputEmail1">Email address
                             <Input className="Input form-control"
-                                onChange={this.onChangeLogin.bind(this)}
-                                value={this.state.login}
+                                onChange={this.onChangEmail.bind(this)}
+                                value={this.state.email}
                                 type='email'
                                 id='exampleInputEmail1'
                                 placeholder='Enter email'
                             >
                             </Input>  
-                            { errorLogin && <span className='ErrorMessege'>{errorLogin}</span>} 
+                            { errorEmail && <span className='ErrorMessege'>{errorEmail}</span>} 
                         </label> 
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password
+                    <div className="form-group">
+                        <label htmlFor="exampleInputPassword1">Password
                             <Input className="Input form-control"
                                 onChange={this.onChangePassword.bind(this)}
                                 value={this.state.password}
@@ -133,7 +162,14 @@ class Auth extends Component {
                     </label>  
                     </div>
 
-                    <button type='submit' className='btn btn-primary' onClick={this.submit.bind(this)}>submit</button>    
+                    <button type='submit' className='btn btn-primary' onClick={this.submit.bind(this)}>{mode === 'signup' ? 'signup' : 'signin' }</button>   
+
+                     <span
+                        className="ModeToggler"
+                        onClick={this.swithModeHandler}>
+                        Switch to { mode === 'signup' ? 'Sign In' : 'Sign Up' }
+                    </span>
+
                 </form>  
             </div>
         );
@@ -146,4 +182,3 @@ Auth.propTypes = {
 
 export default withRouter(Auth);
 
-https://Anagoat@bitbucket.org/Anagoat/films.git
