@@ -104,26 +104,36 @@ class Auth extends Component {
             return (
             <div className="Auth">
                 <form>
+                    <div class="form-group">
                     <h1>Sign In</h1>
-                    <label>
-                        <Input className="Input"
-                            onChange={this.onChangeLogin.bind(this)}
-                            value={this.state.login}
-                        >
-                        </Input>    
-                        { errorLogin && <span className='ErrorMessege'>{errorLogin}</span>} 
-                    </label> 
+                        <label for="exampleInputEmail1">Email address
+                            <Input className="Input form-control"
+                                onChange={this.onChangeLogin.bind(this)}
+                                value={this.state.login}
+                                type='email'
+                                id='exampleInputEmail1'
+                                placeholder='Enter email'
+                            >
+                            </Input>  
+                            { errorLogin && <span className='ErrorMessege'>{errorLogin}</span>} 
+                        </label> 
+                    </div>
 
-                    <label>
-                        <Input className="Input"
-                            onChange={this.onChangePassword.bind(this)}
-                            value={this.state.password}
-                        >
-                        </Input>    
-                        { errorPassword && <span className='ErrorMessege'>{errorPassword}</span>} 
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password
+                            <Input className="Input form-control"
+                                onChange={this.onChangePassword.bind(this)}
+                                value={this.state.password}
+                                type='password'
+                                id='exampleInputPassword1'
+                                placeholder='Password'
+                            >
+                            </Input>    
+                            { errorPassword && <span className='ErrorMessege'>{errorPassword}</span>} 
                     </label>  
+                    </div>
 
-                    <button type='submit' onClick={this.submit.bind(this)}>submit</button>    
+                    <button type='submit' className='btn btn-primary' onClick={this.submit.bind(this)}>submit</button>    
                 </form>  
             </div>
         );
@@ -135,3 +145,5 @@ Auth.propTypes = {
 };
 
 export default withRouter(Auth);
+
+https://Anagoat@bitbucket.org/Anagoat/films.git

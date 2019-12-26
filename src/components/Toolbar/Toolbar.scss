@@ -4,8 +4,8 @@
     background: linear-gradient(to right, #605C3C, #3C3B3F); 
     color: white;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: space-between;
 
     h1 {
         margin: 0;
@@ -14,5 +14,11 @@
 
     .dropdown {
         padding: 10px;
+    }
+
+    button {
+        margin: 10px;
+        position: relative;
+        color: red; 
     }
 }

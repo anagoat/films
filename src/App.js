@@ -35,18 +35,24 @@ class App extends Component {
 
                 <Switch>
 
-                <Route path="/" exact render={props => (
-                    <Startpage
-                        {...props}
-                        movies={this.state.movies}
-                    />
-                )} />
+                    <Route path="/" exact render={props => (
+                        <Startpage
+                            {...props}
+                            movies={this.state.movies}
+                        />
+                    )} />
 
-                <Route path="/:selectedCategory" extend render={props => (
-                    <Films 
-                        {...props}
-                    />
-                )} />
+                    <Route path="/Auth" exact render={props => (
+                        <Auth 
+                            {...props}
+                        />
+                    )} />
+
+                    <Route path="/:selectedCategory" render={props => (
+                        <Films 
+                            {...props}
+                        />
+                    )} />
 
                 </Switch>
                 
