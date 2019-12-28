@@ -10,6 +10,8 @@ const Input = ({ type = 'text', onChange, value, className='Input', id,  placeho
             onChange={onChange}
             id={id}
             placeholder={placeholder}
+            aria-describedby="emailHelp"
+            type={type}
          />
 )
 

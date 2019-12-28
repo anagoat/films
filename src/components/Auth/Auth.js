@@ -15,7 +15,7 @@ class Auth extends Component {
             errorEmail: '',
             errorPassword: '',
             isSubmiting: false,
-            mode: ''
+            mode: 'signin'
         }
 
     }
@@ -38,12 +38,19 @@ class Auth extends Component {
 
     submit(event){
         event.preventDefault();
+
+        const { history } = this.props;
         
-        const { email, password } = this.state;
+        const { email, password, mode } = this.state;
         
         if (this.isFormValid() === true ) {
+            console.log(mode);
+                let baseUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='
 
-                const baseUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='
+                if (mode === 'signin') {
+                    baseUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='
+                }
+
                 const apiKey = 'AIzaSyBhQtg20izEFrHgqbHragW9ZVpZsQSm0xA'
 
                 const options = {
@@ -60,8 +67,15 @@ class Auth extends Component {
                 .then(result => {
                     console.log('[result]', result)
                     
-                    this.setState({ isSubmiting: true })
+                    this.setState({ 
+                        isSubmiting: true,
+                        email: '',
+                        password: '',
+                        errorEmail: '',
+                        errorPassword: ''
+                    })
                 })
+                // .then(() => history.push('/'))
                 .catch(err => console.log('[err]', err))
         }
    }
@@ -130,12 +144,13 @@ class Auth extends Component {
 
         render() {
             const { errorEmail, errorPassword, mode } = this.state;
+            console.log('[mode]', mode);
             return (
             <div className="Auth">
                 <form>
                     <h2>{ mode === 'signup' ? 'Sign Up' : 'Sign In' }</h2>
                     <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Email address
+                        <label htmlFor="exampleInputEmail1">
                             <Input className="Input form-control"
                                 onChange={this.onChangEmail.bind(this)}
                                 value={this.state.email}
@@ -145,11 +160,12 @@ class Auth extends Component {
                             >
                             </Input>  
                             { errorEmail && <span className='ErrorMessege'>{errorEmail}</span>} 
+
                         </label> 
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password
+                        <label htmlFor="exampleInputPassword1">
                             <Input className="Input form-control"
                                 onChange={this.onChangePassword.bind(this)}
                                 value={this.state.password}
@@ -182,3 +198,19 @@ Auth.propTypes = {
 
 export default withRouter(Auth);
 
+// <form>
+//   <div class="form-group">
+//     <label for="exampleInputEmail1">Email address</label>
+//     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+//     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+//   </div>
+//   <div class="form-group">
+//     <label for="exampleInputPassword1">Password</label>
+//     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+//   </div>
+//   <div class="form-group form-check">
+//     <input type="checkbox" class="form-check-input" id="exampleCheck1">
+//     <label class="form-check-label" for="exampleCheck1">Check me out</label>
+//   </div>
+//   <button type="submit" class="btn btn-primary">Submit</button>
+// </form>

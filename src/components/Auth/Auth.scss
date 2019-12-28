@@ -28,14 +28,11 @@
     margin-bottom: 20px;
 }
 
-.Auth .Input {
-    margin-bottom: 15px;
-}
-
 .Auth .ErrorMessege {
     color: rgb(238, 0, 0);
     align-self: center;
     font-size: .8rem;
+    position: relative;
 }
 
 .Auth button {
@@ -45,7 +42,7 @@
     box-shadow: 0 3px 4px #111;
     font-size: 1rem;
     color: rgb(189, 71, 71);
-    background-color: #e7f195;
+    // background-color: #e7f195;
     cursor: pointer;
     user-select: none;
     transition:

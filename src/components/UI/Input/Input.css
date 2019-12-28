@@ -12,5 +12,6 @@
 }
 
 .Input .Error {
+    position: relative;
     border: 3px solid rgb(150, 5, 5);
 }
