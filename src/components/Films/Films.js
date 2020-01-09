@@ -10,7 +10,7 @@ class Films extends Component {
         this.state = {};
         
         const selectedCategory = this.props.match.params.selectedCountry;
-        console.log('[this.props.selectedCategory]', this.props.selectedCategory);
+        // console.log('[this.props.selectedCategory]', this.props.selectedCategory);
     }
 
     render() {

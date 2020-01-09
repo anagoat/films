@@ -15,7 +15,8 @@ class Auth extends Component {
             errorEmail: '',
             errorPassword: '',
             isSubmiting: false,
-            mode: 'signin'
+            mode: 'signin',
+            idToken: ''
         }
 
     }
@@ -32,7 +33,8 @@ class Auth extends Component {
         const { value } = event.target;
         this.setState({
             password: value,
-            errorPassword: false
+            errorPassword: false,
+            idToken: ''
         })
     }
 
@@ -41,10 +43,9 @@ class Auth extends Component {
 
         const { history } = this.props;
         
-        const { email, password, mode } = this.state;
+        const { email, password, mode, idToken } = this.state;
         
         if (this.isFormValid() === true ) {
-            console.log(mode);
                 let baseUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='
 
                 if (mode === 'signin') {
@@ -62,20 +63,20 @@ class Auth extends Component {
                     })
                 };
 
-                fetch(baseUrl + apiKey, options )
+                fetch(baseUrl + apiKey, options)
                 .then(res => res.json())
                 .then(result => {
-                    console.log('[result]', result)
-                    
                     this.setState({ 
                         isSubmiting: true,
                         email: '',
                         password: '',
                         errorEmail: '',
-                        errorPassword: ''
+                        errorPassword: '',
+                        idToken: result.idToken
                     })
+
+                    if (result.idToken) history.push('/')
                 })
-                // .then(() => history.push('/'))
                 .catch(err => console.log('[err]', err))
         }
    }
@@ -143,8 +144,9 @@ class Auth extends Component {
     }
 
         render() {
-            const { errorEmail, errorPassword, mode } = this.state;
-            console.log('[mode]', mode);
+            const { errorEmail, errorPassword, mode, idToken } = this.state;
+            
+            console.log('[idToken]', idToken);
             return (
             <div className="Auth">
                 <form>
